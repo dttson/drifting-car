@@ -8,6 +8,7 @@ TagManager:
   - Road
   - Ground
   - Terrain
+  - FinishTrigger
   layers:
   - Default
   - TransparentFX

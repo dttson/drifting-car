@@ -1,6 +1,7 @@
 using System;
 using System.Collections;
 using System.Collections.Generic;
+using DefaultNamespace;
 using UnityEngine;
 
 public enum GameState { Ready, Racing, Finished }
@@ -12,14 +13,18 @@ public class GameManager : MonoBehaviour
     [Header("Race Settings")]
     public float countdownTime = 3f;
     public GameUIManager uiManager;
-    public DriftCarController myCar;
-    public AICarController[] aiCars;
+    public BaseCarController[] cars;
+
+    [Header("Other")] 
+    public GameObject finishTriggerObject;
 
     private GameState state;
     private float startTime;
     private List<CarResult> results = new List<CarResult>();
 
-    void Awake()
+    private int carHitCount = 0;
+
+    private void Awake()
     {
         if (Instance == null)
             Instance = this;
@@ -46,13 +51,14 @@ public class GameManager : MonoBehaviour
     private void InitUI()
     {
         uiManager.SetButtonStartEnable(true);
+        uiManager.SetJoystickEnable(false);
     }
 
     private void InitCars()
     {
-        // Disable AI cars until race start
-        foreach (var car in aiCars)
-            car.enabled = false;
+        // Disable cars until race start
+        foreach (var car in cars)
+            car.DeActivate();
     }
     
     private void UnregisterEvents()
@@ -62,6 +68,9 @@ public class GameManager : MonoBehaviour
 
     private void OnClickButtonStart()
     {
+        if (state != GameState.Ready)
+            return;
+        
         uiManager.SetButtonStartEnable(false);
         StartCoroutine(CountdownRoutine());
     }
@@ -83,25 +92,36 @@ public class GameManager : MonoBehaviour
         state = GameState.Racing;
         startTime = Time.time;
 
-        // Enable AI cars
-        foreach (var car in aiCars)
-            car.enabled = true;
+        // Enable cars
+        foreach (var car in cars)
+            car.Activate(CarFinished);
         
-        myCar.Activate();
+        // Enable joystick
+        uiManager.SetJoystickEnable(true);
+        
+        //TODO: Need using more reliable way to check
+        finishTriggerObject.SetActive(false);
+        yield return new WaitForSeconds(20f);
+        finishTriggerObject.SetActive(true);
     }
 
     // Call this from a finish-line trigger or car script
-    public void CarFinished(Transform car)
+    public void CarFinished(ICarController car)
     {
-        if (state != GameState.Racing) return;
-
+        if (state != GameState.Racing) 
+            return;
+        
         float duration = Time.time - startTime;
-        results.Add(new CarResult { carName = car.name, duration = duration });
+        results.Add(new CarResult { carName = car.IsMyCar ? "YOU" : "AI Car", duration = duration });
 
-        // Race ends when first car finishes
-        if (results.Count == 1)
+        state = GameState.Finished;
+        
+        if (car.IsMyCar)
         {
-            state = GameState.Finished;
+            car.DeActivate();
+            
+            results.Add(new CarResult { carName = "AI Car", duration = duration });
+            
             uiManager.ShowResults(results);
         }
     }

@@ -1,16 +1,15 @@
-using System;
 using UnityEngine;
-using UnityEngine.Splines;
 using System.Collections.Generic;
 using System.IO;
+using PathCreation;
 #if UNITY_EDITOR
 using UnityEditor;
 #endif
 
-[RequireComponent(typeof(SplineContainer))]
+[RequireComponent(typeof(PathCreator))]
 public class RoadGenerator : MonoBehaviour
 {
-    public SplineContainer splineContainer;
+    public PathCreator pathCreator;
     
     [Header("Recording Settings")]
     public DriftCarController driver;              // Reference to the player-driven car
@@ -25,13 +24,14 @@ public class RoadGenerator : MonoBehaviour
 
     void Awake()
     {
-        splineContainer = GetComponent<SplineContainer>();
-        // splineContainer.Spline.Clear();
+        if (pathCreator == null)
+            pathCreator = GetComponent<PathCreator>();
     }
 
     private void OnValidate()
     {
-        filePath = Path.Combine(Application.persistentDataPath, "recordedPath.json");
+        if (string.IsNullOrEmpty(filePath))
+            filePath = Path.Combine(Application.persistentDataPath, "recordedPath.json");
     }
 
     void Update()
@@ -73,7 +73,7 @@ public class RoadGenerator : MonoBehaviour
         isRecording = !isRecording;
         if (!isRecording)
         {
-            GenerateSpline(recordedPositions);
+            GeneratePath(recordedPositions);
             SaveRecordedPositions();
             recordedPositions.Clear();
             recordTimer = 0f;
@@ -81,15 +81,13 @@ public class RoadGenerator : MonoBehaviour
     }
 
     // Build spline from given positions
-    void GenerateSpline(List<Vector3> positions)
+    void GeneratePath(List<Vector3> positions)
     {
-        splineContainer.Spline.Clear();
-        foreach (Vector3 pos in positions)
+        var bezierPath = new BezierPath(positions)
         {
-            splineContainer.Spline.Add(new BezierKnot(pos));
-        }
-            
-        splineContainer.Spline.Closed = loop;
+            GlobalNormalsAngle = 90f
+        };
+        pathCreator.bezierPath = bezierPath;
     }
 
     // Save recorded path to JSON
@@ -114,27 +112,6 @@ public class RoadGenerator : MonoBehaviour
         Debug.Log($"Loaded recorded path with {data.positions.Length} points");
         return data.positions;
     }
-    
-    // Visualize spline knots and indices in the editor
-    void OnDrawGizmos()
-    {
-        if (splineContainer == null)
-            splineContainer = GetComponent<SplineContainer>();
-
-        var spline = splineContainer.Spline;
-        int count = spline.Count;
-        for (int i = 0; i < count; i++)
-        {
-            Vector3 worldPos = splineContainer.transform.TransformPoint(spline[i].Position);
-            Gizmos.color = Color.yellow;
-            Gizmos.DrawSphere(worldPos, 0.3f);
-
-#if UNITY_EDITOR
-            Handles.color = Color.white;
-            Handles.Label(worldPos + Vector3.up * 0.5f, i.ToString());
-#endif
-        }
-    }
 
     [System.Serializable]
     private class PathData
@@ -147,7 +124,7 @@ public class RoadGenerator : MonoBehaviour
     {
         recordedPositions.Clear();
         recordTimer = 0f;
-        splineContainer.Spline.Clear();
+        pathCreator.bezierPath = null;
         if (File.Exists(filePath))
         {
             File.Delete(filePath);
@@ -163,15 +140,7 @@ public class RoadGenerator : MonoBehaviour
         var positions = LoadRecordedPositions();
         if (positions != null && positions.Length > 0)
         {
-            GenerateSpline(new List<Vector3>(positions));
+            GeneratePath(new List<Vector3>(positions));
         }
-    }
-    
-    [ContextMenu("Smoothen Spline")]
-    private void SmoothenSpline()
-    {
-        // Apply Auto tangent mode to all knots for smooth curves
-        var range = new SplineRange(0, splineContainer.Spline.Count);
-        splineContainer.Spline.SetTangentMode(range, TangentMode.AutoSmooth);
     }
 }
