@@ -20925,7 +20925,7 @@
                     },
                     {
                         "name": "anchorMax#set",
-                        "excluded": true
+                        "excluded": false
                     },
                     {
                         "name": "anchorMin#get",
@@ -20933,7 +20933,7 @@
                     },
                     {
                         "name": "anchorMin#set",
-                        "excluded": true
+                        "excluded": false
                     },
                     {
                         "name": "offsetMin#get",
@@ -33179,7 +33179,7 @@
                     },
                     {
                         "name": "SetMode",
-                        "excluded": true
+                        "excluded": false
                     },
                     {
                         "name": "Start",

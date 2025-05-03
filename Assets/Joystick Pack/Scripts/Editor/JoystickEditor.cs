@@ -24,7 +24,7 @@ public class JoystickEditor : Editor
         snapX = serializedObject.FindProperty("snapX");
         snapY = serializedObject.FindProperty("snapY");
         background = serializedObject.FindProperty("background");
-        handle = serializedObject.FindProperty("handle");
+        handle = serializedObject.FindProperty("realHandle");
     }
 
     public override void OnInspectorGUI()
