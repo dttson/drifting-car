@@ -9,7 +9,7 @@ public class DriftCarController : BaseCarController
 {
     public override string CarName => "YOU";
     public override bool IsMyCar => true;
-    
+
     [Header("Movement")]
     public float acceleration = 10f;
     public float turnSpeed = 100f;
@@ -21,10 +21,11 @@ public class DriftCarController : BaseCarController
     public float inputSmoothTime = 0.1f;
 
     [Header("Grounding")]
-    public float groundOffset = 0.5f;
-    public float groundRayLength = 1.5f;
+    [LunaPlaygroundField] public float groundOffset = 0.5f;
+    [LunaPlaygroundField] public float groundRayLength = 1.5f;
+    [LunaPlaygroundField] public float groundSnapSpeed = 10f;
+    
     public LayerMask groundLayer;
-    public float groundSnapSpeed = 10f;
     public float maxSlopeAngle = 30f; // Only snap on gentle slopes
 
     [Header("AudioSource")] 
@@ -67,6 +68,7 @@ public class DriftCarController : BaseCarController
     {
         base.DeActivate();
         sfxCarEngine.Stop();
+        sfxCarDrift.Stop();
         sfxCarIdle.Play();
     }
 

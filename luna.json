@@ -2196,10 +2196,6 @@
                 "excluded": true
             },
             {
-                "name": "UnityEngine.ContactPoint",
-                "excluded": true
-            },
-            {
                 "name": "UnityEngine.MaterialPropertyBlock",
                 "excluded": true
             },
@@ -6644,10 +6640,6 @@
                 "excluded": true
             },
             {
-                "name": "DG.Tweening.ShortcutExtensions",
-                "excluded": true
-            },
-            {
                 "name": "DG.Tweening.TweenParams",
                 "excluded": true
             },
@@ -6704,10 +6696,6 @@
                 "excluded": true
             },
             {
-                "name": "DG.Tweening.Plugins.Vector3Plugin",
-                "excluded": true
-            },
-            {
                 "name": "DG.Tweening.Plugins.Vector4Plugin",
                 "excluded": true
             },
@@ -6757,11 +6745,11 @@
             },
             {
                 "name": "DG.Tweening.Core.Enums.FilterType",
-                "excluded": true
+                "excluded": false
             },
             {
                 "name": "DG.Tweening.Core.Enums.OperationType",
-                "excluded": true
+                "excluded": false
             },
             {
                 "name": "DG.Tweening.Core.Enums.SpecialStartupMode",
@@ -8741,11 +8729,11 @@
                     },
                     {
                         "name": "isSeparator",
-                        "excluded": true
+                        "excluded": false
                     },
                     {
                         "name": "isPunctuation",
-                        "excluded": true
+                        "excluded": false
                     },
                     {
                         "name": "isNumber",
@@ -12307,11 +12295,11 @@
                     },
                     {
                         "name": "IncreaseCapacity",
-                        "excluded": true
+                        "excluded": false
                     },
                     {
                         "name": "SetCapacity",
-                        "excluded": true
+                        "excluded": false
                     },
                     {
                         "name": "AddIfNotPresent",
@@ -12469,7 +12457,7 @@
                     },
                     {
                         "name": "$clone",
-                        "excluded": true
+                        "excluded": false
                     }
                 ]
             },
@@ -19351,11 +19339,11 @@
                     },
                     {
                         "name": "localScale#get",
-                        "excluded": true
+                        "excluded": false
                     },
                     {
                         "name": "localScale#set",
-                        "excluded": true
+                        "excluded": false
                     },
                     {
                         "name": "lossyScale#get",
@@ -23699,7 +23687,7 @@
                     },
                     {
                         "name": "sprite#set",
-                        "excluded": true
+                        "excluded": false
                     },
                     {
                         "name": "overrideSprite#get",
@@ -25877,7 +25865,7 @@
                     },
                     {
                         "name": "$clone",
-                        "excluded": true
+                        "excluded": false
                     }
                 ]
             },
@@ -26973,7 +26961,7 @@
                     },
                     {
                         "name": "ResizeInternalArray$1",
-                        "excluded": true
+                        "excluded": false
                     },
                     {
                         "name": "AddFloatToInternalTextBackingArray",
@@ -27073,7 +27061,7 @@
                     },
                     {
                         "name": "ResizeLineExtents",
-                        "excluded": true
+                        "excluded": false
                     },
                     {
                         "name": "GetTextInfo",
@@ -27327,7 +27315,7 @@
                 "instanceMethods": [
                     {
                         "name": "getDefaultValue",
-                        "excluded": true
+                        "excluded": false
                     },
                     {
                         "name": "init",
@@ -27347,7 +27335,7 @@
                     },
                     {
                         "name": "$clone",
-                        "excluded": true
+                        "excluded": false
                     }
                 ]
             },
@@ -28715,7 +28703,7 @@
                 "instanceMethods": [
                     {
                         "name": "getDefaultValue",
-                        "excluded": true
+                        "excluded": false
                     },
                     {
                         "name": "ctor",
@@ -28731,7 +28719,7 @@
                     },
                     {
                         "name": "$clone",
-                        "excluded": true
+                        "excluded": false
                     }
                 ]
             },
@@ -28745,11 +28733,11 @@
                     },
                     {
                         "name": "Resize",
-                        "excluded": true
+                        "excluded": false
                     },
                     {
                         "name": "Resize$1",
-                        "excluded": true
+                        "excluded": false
                     },
                     {
                         "name": "ctor",
@@ -29175,7 +29163,7 @@
                     },
                     {
                         "name": "$clone",
-                        "excluded": true
+                        "excluded": false
                     }
                 ]
             },
@@ -29185,7 +29173,7 @@
                 "instanceMethods": [
                     {
                         "name": "getDefaultValue",
-                        "excluded": true
+                        "excluded": false
                     },
                     {
                         "name": "ctor",
@@ -29205,7 +29193,7 @@
                     },
                     {
                         "name": "$clone",
-                        "excluded": true
+                        "excluded": false
                     }
                 ]
             },
@@ -30309,10 +30297,18 @@
                     },
                     {
                         "name": "IsMyCar#get",
-                        "excluded": true
+                        "excluded": false
                     },
                     {
                         "name": "DeActivate",
+                        "excluded": false
+                    },
+                    {
+                        "name": "CarName#get",
+                        "excluded": false
+                    },
+                    {
+                        "name": "OnCollisionStay",
                         "excluded": false
                     }
                 ]
@@ -30360,6 +30356,14 @@
                     {
                         "name": "CarFinished",
                         "excluded": false
+                    },
+                    {
+                        "name": "Update",
+                        "excluded": false
+                    },
+                    {
+                        "name": "DelayDeactivateCar",
+                        "excluded": true
                     }
                 ]
             },
@@ -30393,7 +30397,7 @@
                     },
                     {
                         "name": "ShowResults",
-                        "excluded": true
+                        "excluded": false
                     },
                     {
                         "name": "SetJoystickEnable",
@@ -30541,7 +30545,7 @@
                     },
                     {
                         "name": "contacts#get",
-                        "excluded": true
+                        "excluded": false
                     },
                     {
                         "name": "contactCount#get",
@@ -30619,7 +30623,7 @@
                     },
                     {
                         "name": "LogWarning",
-                        "excluded": true
+                        "excluded": false
                     },
                     {
                         "name": "LogError",
@@ -30875,7 +30879,7 @@
                     },
                     {
                         "name": "FilteredOperation",
-                        "excluded": true
+                        "excluded": false
                     },
                     {
                         "name": "Complete",
@@ -31061,7 +31065,7 @@
                     },
                     {
                         "name": "To$12",
-                        "excluded": true
+                        "excluded": false
                     },
                     {
                         "name": "To$13",
@@ -31221,7 +31225,7 @@
                     },
                     {
                         "name": "Kill",
-                        "excluded": true
+                        "excluded": false
                     },
                     {
                         "name": "Kill$1",
@@ -31579,7 +31583,7 @@
                     },
                     {
                         "name": "SetLoops$1",
-                        "excluded": true
+                        "excluded": false
                     },
                     {
                         "name": "SetEase$2",
@@ -31691,7 +31695,7 @@
                     },
                     {
                         "name": "AppendInterval",
-                        "excluded": true
+                        "excluded": false
                     },
                     {
                         "name": "PrependInterval",
@@ -31783,7 +31787,7 @@
                     },
                     {
                         "name": "SetOptions$12",
-                        "excluded": true
+                        "excluded": false
                     },
                     {
                         "name": "SetOptions$15",
@@ -32017,7 +32021,7 @@
                     },
                     {
                         "name": "DoAppendInterval",
-                        "excluded": true
+                        "excluded": false
                     },
                     {
                         "name": "DoPrependInterval",
@@ -33214,6 +33218,10 @@
                     {
                         "name": "Update",
                         "excluded": false
+                    },
+                    {
+                        "name": "CarName#get",
+                        "excluded": false
                     }
                 ]
             },
@@ -33538,6 +33546,550 @@
                     {
                         "name": "ctor",
                         "excluded": false
+                    }
+                ]
+            },
+            {
+                "className": "UnityEngine.ContactPoint",
+                "staticMethods": [],
+                "instanceMethods": [
+                    {
+                        "name": "point#get",
+                        "excluded": true
+                    },
+                    {
+                        "name": "normal#get",
+                        "excluded": false
+                    },
+                    {
+                        "name": "depth#get",
+                        "excluded": true
+                    },
+                    {
+                        "name": "thisCollider#get",
+                        "excluded": true
+                    },
+                    {
+                        "name": "otherCollider#get",
+                        "excluded": true
+                    },
+                    {
+                        "name": "init",
+                        "excluded": false
+                    },
+                    {
+                        "name": "ctor",
+                        "excluded": false
+                    }
+                ]
+            },
+            {
+                "className": "RankUI",
+                "staticMethods": [],
+                "instanceMethods": [
+                    {
+                        "name": "UpdateData",
+                        "excluded": false
+                    }
+                ]
+            },
+            {
+                "className": "UI.ResultPanel",
+                "staticMethods": [],
+                "instanceMethods": [
+                    {
+                        "name": "init",
+                        "excluded": false
+                    },
+                    {
+                        "name": "OnEnable",
+                        "excluded": false
+                    },
+                    {
+                        "name": "OnDisable",
+                        "excluded": true
+                    },
+                    {
+                        "name": "AnimateTitle",
+                        "excluded": false
+                    },
+                    {
+                        "name": "AnimateRecords",
+                        "excluded": false
+                    },
+                    {
+                        "name": "PopulateResults",
+                        "excluded": false
+                    }
+                ]
+            },
+            {
+                "className": "DG.Tweening.ShortcutExtensions",
+                "staticMethods": [],
+                "instanceMethods": [
+                    {
+                        "name": "DOColor$5",
+                        "excluded": true
+                    },
+                    {
+                        "name": "DOColor",
+                        "excluded": true
+                    },
+                    {
+                        "name": "DOColor$1",
+                        "excluded": true
+                    },
+                    {
+                        "name": "DOColor$3",
+                        "excluded": true
+                    },
+                    {
+                        "name": "DOColor$4",
+                        "excluded": true
+                    },
+                    {
+                        "name": "DOColor$2",
+                        "excluded": true
+                    },
+                    {
+                        "name": "DOTimeScale",
+                        "excluded": true
+                    },
+                    {
+                        "name": "DOAspect",
+                        "excluded": true
+                    },
+                    {
+                        "name": "DOFarClipPlane",
+                        "excluded": true
+                    },
+                    {
+                        "name": "DOFieldOfView",
+                        "excluded": true
+                    },
+                    {
+                        "name": "DONearClipPlane",
+                        "excluded": true
+                    },
+                    {
+                        "name": "DOOrthoSize",
+                        "excluded": true
+                    },
+                    {
+                        "name": "DOPixelRect",
+                        "excluded": true
+                    },
+                    {
+                        "name": "DORect",
+                        "excluded": true
+                    },
+                    {
+                        "name": "DOShakePosition",
+                        "excluded": true
+                    },
+                    {
+                        "name": "DOShakePosition$1",
+                        "excluded": true
+                    },
+                    {
+                        "name": "DOShakePosition$2",
+                        "excluded": true
+                    },
+                    {
+                        "name": "DOShakePosition$3",
+                        "excluded": true
+                    },
+                    {
+                        "name": "DOShakeRotation",
+                        "excluded": true
+                    },
+                    {
+                        "name": "DOShakeRotation$1",
+                        "excluded": true
+                    },
+                    {
+                        "name": "DOShakeRotation$2",
+                        "excluded": true
+                    },
+                    {
+                        "name": "DOShakeRotation$3",
+                        "excluded": true
+                    },
+                    {
+                        "name": "DOIntensity",
+                        "excluded": true
+                    },
+                    {
+                        "name": "DOShadowStrength",
+                        "excluded": true
+                    },
+                    {
+                        "name": "DOFade$1",
+                        "excluded": true
+                    },
+                    {
+                        "name": "DOFade$2",
+                        "excluded": true
+                    },
+                    {
+                        "name": "DOFade",
+                        "excluded": true
+                    },
+                    {
+                        "name": "DOFloat$1",
+                        "excluded": true
+                    },
+                    {
+                        "name": "DOFloat",
+                        "excluded": true
+                    },
+                    {
+                        "name": "DOOffset",
+                        "excluded": true
+                    },
+                    {
+                        "name": "DOOffset$1",
+                        "excluded": true
+                    },
+                    {
+                        "name": "DOTiling",
+                        "excluded": true
+                    },
+                    {
+                        "name": "DOTiling$1",
+                        "excluded": true
+                    },
+                    {
+                        "name": "DOVector$1",
+                        "excluded": true
+                    },
+                    {
+                        "name": "DOVector",
+                        "excluded": true
+                    },
+                    {
+                        "name": "DOResize",
+                        "excluded": true
+                    },
+                    {
+                        "name": "DOTime",
+                        "excluded": true
+                    },
+                    {
+                        "name": "DOMove",
+                        "excluded": true
+                    },
+                    {
+                        "name": "DOMoveX",
+                        "excluded": true
+                    },
+                    {
+                        "name": "DOMoveY",
+                        "excluded": true
+                    },
+                    {
+                        "name": "DOMoveZ",
+                        "excluded": true
+                    },
+                    {
+                        "name": "DOLocalMove",
+                        "excluded": true
+                    },
+                    {
+                        "name": "DOLocalMoveX",
+                        "excluded": true
+                    },
+                    {
+                        "name": "DOLocalMoveY",
+                        "excluded": true
+                    },
+                    {
+                        "name": "DOLocalMoveZ",
+                        "excluded": true
+                    },
+                    {
+                        "name": "DORotate",
+                        "excluded": true
+                    },
+                    {
+                        "name": "DORotateQuaternion",
+                        "excluded": true
+                    },
+                    {
+                        "name": "DOLocalRotate",
+                        "excluded": true
+                    },
+                    {
+                        "name": "DOLocalRotateQuaternion",
+                        "excluded": true
+                    },
+                    {
+                        "name": "DOScale$1",
+                        "excluded": true
+                    },
+                    {
+                        "name": "DOScale",
+                        "excluded": true
+                    },
+                    {
+                        "name": "DOScaleX",
+                        "excluded": false
+                    },
+                    {
+                        "name": "DOScaleY",
+                        "excluded": true
+                    },
+                    {
+                        "name": "DOScaleZ",
+                        "excluded": true
+                    },
+                    {
+                        "name": "DOLookAt",
+                        "excluded": true
+                    },
+                    {
+                        "name": "DODynamicLookAt",
+                        "excluded": true
+                    },
+                    {
+                        "name": "LookAt",
+                        "excluded": true
+                    },
+                    {
+                        "name": "DOPunchPosition",
+                        "excluded": true
+                    },
+                    {
+                        "name": "DOPunchScale",
+                        "excluded": true
+                    },
+                    {
+                        "name": "DOPunchRotation",
+                        "excluded": true
+                    },
+                    {
+                        "name": "DOShakeScale",
+                        "excluded": true
+                    },
+                    {
+                        "name": "DOShakeScale$1",
+                        "excluded": true
+                    },
+                    {
+                        "name": "DOJump",
+                        "excluded": true
+                    },
+                    {
+                        "name": "DOLocalJump",
+                        "excluded": true
+                    },
+                    {
+                        "name": "DOPath$1",
+                        "excluded": true
+                    },
+                    {
+                        "name": "DOPath",
+                        "excluded": true
+                    },
+                    {
+                        "name": "DOLocalPath$1",
+                        "excluded": true
+                    },
+                    {
+                        "name": "DOLocalPath",
+                        "excluded": true
+                    },
+                    {
+                        "name": "DOBlendableColor",
+                        "excluded": true
+                    },
+                    {
+                        "name": "DOBlendableColor$2",
+                        "excluded": true
+                    },
+                    {
+                        "name": "DOBlendableColor$3",
+                        "excluded": true
+                    },
+                    {
+                        "name": "DOBlendableColor$1",
+                        "excluded": true
+                    },
+                    {
+                        "name": "DOBlendableMoveBy",
+                        "excluded": true
+                    },
+                    {
+                        "name": "DOBlendableLocalMoveBy",
+                        "excluded": true
+                    },
+                    {
+                        "name": "DOBlendableRotateBy",
+                        "excluded": true
+                    },
+                    {
+                        "name": "DOBlendableLocalRotateBy",
+                        "excluded": true
+                    },
+                    {
+                        "name": "DOBlendablePunchRotation",
+                        "excluded": true
+                    },
+                    {
+                        "name": "DOBlendableScaleBy",
+                        "excluded": true
+                    },
+                    {
+                        "name": "DOComplete",
+                        "excluded": true
+                    },
+                    {
+                        "name": "DOComplete$1",
+                        "excluded": true
+                    },
+                    {
+                        "name": "DOKill",
+                        "excluded": true
+                    },
+                    {
+                        "name": "DOKill$1",
+                        "excluded": true
+                    },
+                    {
+                        "name": "DOFlip",
+                        "excluded": true
+                    },
+                    {
+                        "name": "DOFlip$1",
+                        "excluded": true
+                    },
+                    {
+                        "name": "DOGoto",
+                        "excluded": true
+                    },
+                    {
+                        "name": "DOGoto$1",
+                        "excluded": true
+                    },
+                    {
+                        "name": "DOPause",
+                        "excluded": true
+                    },
+                    {
+                        "name": "DOPause$1",
+                        "excluded": true
+                    },
+                    {
+                        "name": "DOPlay",
+                        "excluded": true
+                    },
+                    {
+                        "name": "DOPlay$1",
+                        "excluded": true
+                    },
+                    {
+                        "name": "DOPlayBackwards",
+                        "excluded": true
+                    },
+                    {
+                        "name": "DOPlayBackwards$1",
+                        "excluded": true
+                    },
+                    {
+                        "name": "DOPlayForward",
+                        "excluded": true
+                    },
+                    {
+                        "name": "DOPlayForward$1",
+                        "excluded": true
+                    },
+                    {
+                        "name": "DORestart",
+                        "excluded": true
+                    },
+                    {
+                        "name": "DORestart$1",
+                        "excluded": true
+                    },
+                    {
+                        "name": "DORewind",
+                        "excluded": true
+                    },
+                    {
+                        "name": "DORewind$1",
+                        "excluded": true
+                    },
+                    {
+                        "name": "DOSmoothRewind",
+                        "excluded": true
+                    },
+                    {
+                        "name": "DOSmoothRewind$1",
+                        "excluded": true
+                    },
+                    {
+                        "name": "DOTogglePause",
+                        "excluded": true
+                    },
+                    {
+                        "name": "DOTogglePause$1",
+                        "excluded": true
+                    }
+                ]
+            },
+            {
+                "className": "DG.Tweening.Plugins.Vector3Plugin",
+                "staticMethods": [],
+                "instanceMethods": [
+                    {
+                        "name": "Reset",
+                        "excluded": false
+                    },
+                    {
+                        "name": "SetFrom$1",
+                        "excluded": true
+                    },
+                    {
+                        "name": "SetFrom",
+                        "excluded": true
+                    },
+                    {
+                        "name": "ConvertToStartValue",
+                        "excluded": false
+                    },
+                    {
+                        "name": "SetRelativeEndValue",
+                        "excluded": true
+                    },
+                    {
+                        "name": "SetChangeValue",
+                        "excluded": false
+                    },
+                    {
+                        "name": "GetSpeedBasedDuration",
+                        "excluded": true
+                    },
+                    {
+                        "name": "EvaluateAndApply",
+                        "excluded": false
+                    }
+                ]
+            },
+            {
+                "className": "Utils.NumberExtensions",
+                "staticMethods": [],
+                "instanceMethods": [
+                    {
+                        "name": "FormatCoin",
+                        "excluded": true
+                    },
+                    {
+                        "name": "FormatTimeFromSecondsPretty",
+                        "excluded": false
+                    },
+                    {
+                        "name": "FormatTimeFromSeconds",
+                        "excluded": true
                     }
                 ]
             }

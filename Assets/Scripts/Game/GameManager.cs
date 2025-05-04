@@ -38,19 +38,19 @@ public class GameManager : MonoBehaviour
         RegisterEvents();
     }
 
-    // private void Update()
-    // {
-    //     if (Input.GetKeyUp(KeyCode.L))
-    //     {
-    //         foreach (BaseCarController carController in cars)
-    //         {
-    //             CarFinished(carController);
-    //         }
-    //     }
-    //     
-    //     if (Input.GetKeyUp(KeyCode.M))
-    //         uiManager.ShowResults(results);
-    // }
+    private void Update()
+    {
+        // if (state != GameState.Racing)
+        //     return;
+        //
+        // if (Input.GetMouseButtonUp(0))
+        // {
+        //     foreach (BaseCarController carController in cars)
+        //     {
+        //         CarFinished(carController);
+        //     }
+        // }
+    }
 
     private void OnDestroy()
     {
@@ -127,16 +127,15 @@ public class GameManager : MonoBehaviour
         
         if (results.Exists(r => r.carName == car.CarName))
             return;
-
+        
         var duration = (int)(Time.time - startTime);
         int rank = results.Count + 1;
         results.Add(new CarResult { rank = rank, carName = car.CarName, duration = duration, isMyCar = car.IsMyCar});
         
         if (car.IsMyCar)
         {
-            state = GameState.Finished;
-            
             car.DeActivate();
+            state = GameState.Finished;
 
             // If user finish, then auto fill all data of other AI cars
             // TODO: Should have function to calculate result of other AIs
@@ -148,6 +147,16 @@ public class GameManager : MonoBehaviour
             
             uiManager.ShowResults(results);
         }
+        else
+        {
+            StartCoroutine(DelayDeactivateCar(car));    
+        }
+    }
+
+    IEnumerator DelayDeactivateCar(ICarController car)
+    {
+        yield return new WaitForSeconds(3f);
+        car.DeActivate();
     }
 
     // Data structure for results
