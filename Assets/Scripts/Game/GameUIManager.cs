@@ -5,6 +5,7 @@ using UnityEngine;
 using UnityEngine.UI;
 using DG.Tweening;
 using TMPro;
+using UI;
 
 public class GameUIManager : MonoBehaviour
 {
@@ -19,8 +20,7 @@ public class GameUIManager : MonoBehaviour
     public TMP_Text countdownText;
 
     [Header("Results UI")]
-    public GameObject resultsPanel;
-    public TMP_Text[] rankingTexts;
+    public ResultPanel resultsPanel;
 
     public Button buttonStart;
 
@@ -34,7 +34,7 @@ public class GameUIManager : MonoBehaviour
     void Awake()
     {
         joystickUI.SetActive(false);
-        resultsPanel.SetActive(false);
+        resultsPanel.gameObject.SetActive(false);
         countdownGroup.alpha = 0f;
 
         countdownRect = countdownGroup.GetComponent<RectTransform>();
@@ -89,11 +89,7 @@ public class GameUIManager : MonoBehaviour
     
     public void ShowResults(List<GameManager.CarResult> results)
     {
-        resultsPanel.SetActive(true);
-        for (int i = 0; i < results.Count && i < rankingTexts.Length; i++)
-        {
-            var r = results[i];
-            rankingTexts[i].text = $"{i + 1}. {r.carName} - {(r.duration > 0f ? r.duration.ToString("F2") : "--:--:--")}s";
-        }
+        resultsPanel.gameObject.SetActive(true);
+        resultsPanel.PopulateResults(results);
     }
 }

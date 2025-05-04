@@ -38,6 +38,20 @@ public class GameManager : MonoBehaviour
         RegisterEvents();
     }
 
+    // private void Update()
+    // {
+    //     if (Input.GetKeyUp(KeyCode.L))
+    //     {
+    //         foreach (BaseCarController carController in cars)
+    //         {
+    //             CarFinished(carController);
+    //         }
+    //     }
+    //     
+    //     if (Input.GetKeyUp(KeyCode.M))
+    //         uiManager.ShowResults(results);
+    // }
+
     private void OnDestroy()
     {
         UnregisterEvents();
@@ -108,19 +122,29 @@ public class GameManager : MonoBehaviour
     // Call this from a finish-line trigger or car script
     public void CarFinished(ICarController car)
     {
-        if (state != GameState.Racing) 
+        if (results.Count >= cars.Length) 
             return;
         
-        float duration = Time.time - startTime;
-        results.Add(new CarResult { carName = car.IsMyCar ? "YOU" : "AI Car", duration = duration });
+        if (results.Exists(r => r.carName == car.CarName))
+            return;
 
-        state = GameState.Finished;
+        var duration = (int)(Time.time - startTime);
+        int rank = results.Count + 1;
+        results.Add(new CarResult { rank = rank, carName = car.CarName, duration = duration, isMyCar = car.IsMyCar});
         
         if (car.IsMyCar)
         {
-            car.DeActivate();
+            state = GameState.Finished;
             
-            results.Add(new CarResult { carName = "AI Car", duration = duration });
+            car.DeActivate();
+
+            // If user finish, then auto fill all data of other AI cars
+            // TODO: Should have function to calculate result of other AIs
+            for (int i = rank; i < cars.Length; i++)
+            {
+                var otherCar = cars[i];
+                results.Add(new CarResult { rank = i + 1, carName = otherCar.CarName, duration = 0, isMyCar = false});
+            }
             
             uiManager.ShowResults(results);
         }
@@ -129,7 +153,9 @@ public class GameManager : MonoBehaviour
     // Data structure for results
     public class CarResult
     {
+        public int rank;
         public string carName;
-        public float duration;
+        public int duration;
+        public bool isMyCar;
     }
 }

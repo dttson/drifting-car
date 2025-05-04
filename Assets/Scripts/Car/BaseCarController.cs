@@ -4,6 +4,7 @@ using UnityEngine;
 
 public abstract class BaseCarController: MonoBehaviour, ICarController
 {
+    public abstract string CarName { get; }
     public abstract bool IsMyCar { get; }
     
     protected Action<ICarController> onFinish;

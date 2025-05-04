@@ -7,6 +7,7 @@ using UnityEngine;
 [RequireComponent(typeof(Rigidbody))]
 public class DriftCarController : BaseCarController
 {
+    public override string CarName => "YOU";
     public override bool IsMyCar => true;
     
     [Header("Movement")]
@@ -80,7 +81,7 @@ public class DriftCarController : BaseCarController
         
         smokeParticle.gameObject.SetActive(false);
 
-        sfxCarDrift.loop = false;
+        sfxCarDrift.loop = true;
         sfxCarIdle.loop = sfxCarEngine.loop = true;
         
         sfxCarIdle.Play();
@@ -161,14 +162,12 @@ public class DriftCarController : BaseCarController
             if (isDrifting)
             {
                 sfxCarDrift.Play();
-                if (!smokeParticle.isPlaying)
-                    smokeParticle.Play();
+                smokeParticle.Play();
             }
             else
             {
                 sfxCarDrift.Stop();
-                if (smokeParticle.isPlaying)
-                    smokeParticle.Stop();
+                smokeParticle.Stop();
             }
                 
         }
@@ -215,5 +214,18 @@ public class DriftCarController : BaseCarController
             return;
         
         SoundManager.Instance.PlaySFX(SoundEffect.CarHitObject);
+    }
+    
+    void OnCollisionStay(Collision collision)
+    {
+        // Prevent sticking: remove velocity into collision surfaces
+        Vector3 avgNormal = Vector3.zero;
+        foreach (ContactPoint contact in collision.contacts)
+            avgNormal += contact.normal;
+        avgNormal.Normalize();
+
+        Vector3 vel = rb.velocity;
+        Vector3 projected = Vector3.ProjectOnPlane(vel, avgNormal);
+        rb.velocity = projected;
     }
 }

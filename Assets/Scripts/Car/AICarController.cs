@@ -6,6 +6,7 @@ using PathCreation;
 
 public class AICarController : BaseCarController
 {
+    public override string CarName => "AI Car";
     public override bool IsMyCar => false;
 
     [Header("Path & Movement")]
