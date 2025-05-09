@@ -7,8 +7,16 @@
 - 2 approaches of control: Physics-based or Logic-based
     - Choose Physics-based for fast implementation + simulate most closed to the real car drifting behavior
 - Implement movement & rotatiton using keyboard (WASD)
-- Damp down the velocity to create “drift” effect → SHOULD CREATE ANOTHER STEP???
-- //TODO: Add explanation for configuration
+- Damp down the velocity to create “drift” effect
+    - Calculate magnitte of forward velocity and sideway velocity from `RidigBody` velocity
+    - Reapply the forward velocity (no changed) and sideway velocity (with a `driftFactor` to create drift effect)
+
+```csharp
+Vector3 vel = rb.velocity;
+float forwardVel = Vector3.Dot(vel, transform.forward);
+float sidewaysVel = Vector3.Dot(vel, transform.right);
+rb.velocity = transform.forward * forwardVel + transform.right * sidewaysVel * driftFactor;
+```
 
 ### 2. Isometric Camera
 
@@ -109,15 +117,121 @@ Add the AICarBehavior to compete with user
 - Adding `GameUIManager` class to handle UI + animation
     - Function to show update countdown
     - Function to show end result
+- Result Panel
+    - Show records of users + AI cars
+    - Each record will contains:
+        - Ranking
+        - Image of the car → script `CarScreenshotCapture` and save the image
+        - Duration
+    - Animate the record
+        - Move fast from the right
+        - Slowly moving back and forth around center
 
 ### Utils
 
 - `SoundManager` utility class to play SFX + BGM
+    - CarEngine
+    - CarIdle
+    - CarDrift
+    - CarHit
+- Utilize [Joystick Pack Asset](https://assetstore.unity.com/packages/tools/input-management/joystick-pack-107631) to implement joystick UI and function
+    - Apply the joystick to the movement
 
+### VFX
+
+- Adding smoke particle for car drifting effect
+    - Using `Cone` shape to simulate smoke effect
+    - Adjust `Rate over Time` to 5
+
+## Fourth Testing
+
+- P5: The control of joystick is difficult, because it has fixed to world direction, while the car is rotate continously
+- P6: The car sometimes stick on the fence and cannot move forward
+- P7: The smoke particle sometimes not appear while car drift
+- P8: The sfx sometimes not play correctly, especially the drift audio
+
+## Problem Solving (#3)
+
+### Problem 5: Joystick control is difficult
+
+- Instead of using fixed world direction (joystick up/down to move forward/backward, left/right to turn left/right), I tried to approach a car direction based control, so the car direction will follow the direction of the joystick (from the center to the handle). How to do it?
+- To achieve this, I applied the dot product of joystick direction (which was converted to 3D), and applied the dot product with the car forward and right direction to get the `rawMove` and `rawTurn` direction
+
+```csharp
+Vector2 dir = joystick.Direction;
+float mag = dir.magnitude;
+if (mag > joystickDeadzone)
+{
+    Vector3 worldDir = new Vector3(dir.x, 0f, dir.y).normalized;
+    rawMove = Vector3.Dot(worldDir, transform.forward) * mag;
+    rawTurn = Vector3.Dot(worldDir, transform.right) * mag;
+}
+
+//... Previous movement logic here
+```
+
+### Problem 6: Car stick to the fences
+
+- After many trial and errors, I found that I can fix this by apply both 2 solution
+    - Using the `CapsuleCollider` for the car collider instead of `BoxCollider`
+    - Apply `PhysicMaterial` to the car and the fence, to make it slippery on each other
+
+### Problem 7: The smoke not appear sometimes
+
+- The particle seems appear correctly when the car stay, but when the car moving it becomes continous in a while and then disappear.
+- After trying many ways, from enable / disable the particle game object, to extend the duration, increase the max particles, I found that right parameters to adjust is `Rate over Distance`.
+- By increase the `Rate over Distance` to 1, the particle still remain whenever the car moving or staying.
+
+### Problem 8: SFX not playing correctly
+
+- This is because of the cycle re-use of the AudioSource in `SoundManager`
+- I deciced to create separate audio sources attached to the `DriftCarController` game object, and turn on/off any specific source.
+
+## Fifth Testing
+
+- The joystick control is much easier than previous version
+- The car was running smoothly, no stick the fence
+- The audio and the particles worked aswell.
+
+## Integrate Luna
+
+### Problem #1:
+
+- The very first problem I ran into is the plugin not working on the Editor at all. I used Windows 11 with Unity 2022.3.20f1). I also tried to install another version or running the [LunaSampleGame](https://github.com/LunaCommunity/LunaSampleGame) but nothing works. Here is the error:
+
+![](https://raw.githubusercontent.com/dttson/drifting-car/refs/heads/main/Documents/LunaWindowsError.png)
+
+**Solution:**
+
+- There is no solution for Windows Editor
+- Switching machine to MacOS will helps (no error at all).
+
+### Problem #2:
+
+The Unity Spline library depend on `Unity.Mathematics` package, which is not supported by Luna ([Common Issue Page](https://docs.lunalabs.io/docs/playable/common-issues/code/unity-mathematics-system-math))
+
+**Solution:**
+
+- Switch to an open source path creator https://github.com/SebLague/Path-Creator to re-implement the movement of AI car.
+- The basic logic of the AI car (moving follow path, update rotation, overtaking) will be the same, just need to use another API to get the road’s length.
+
+### Problem #3:
+
+There are too many meshes and texture in the game, which affect performance and build size.
+
+**Solution:**
+
+- Remove all unecessary environment assets / objects from the scene
+- Remove all the hidden parts inside the car model.
+
+### Problem #4:
+
+When running on browser, the car often stick to the ground or the fence.
+
+**Solution:**
+
+- Increase the `groundOffset`  to make the car more separate from the road, also expose it to browser using `LunaPlaygroundField`
 
 # Preview Links in Luna
 
-https://playground.lunalabs.io/preview/227652/313127/ca3ddaa0673f1053128443df913abd4999b539f5e9d9bbd91ebe5accfe665378
-
-
-To be continue…
+[https://playground.lunalabs.io/preview/227652/313127/ca3ddaa0673f1053128443df913abd4999b539f5e9d9bbd91ebe5accfe665378](https://playground.lunalabs.io/preview/227652/313127/ca3ddaa0673f1053128443df913abd4999b539f5e9d9bbd91ebe5accfe665378)
